@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 class InputOutputStatements {
     // Variable Declaration
-    static byte a;
+    public static byte a;
     static short b;
     static int c;
     static long d;
@@ -151,8 +151,19 @@ class TypeConversion {
 }
 
 class Methods {
+    //Addition
     public static int add(int a, int b) {
         return a + b;
+    }
+    
+    //Candy(s) Distribution 
+    public int[] candiesDistribution(int totalCandies, int studentsCount) {
+        return new int[] {totalCandies / studentsCount, totalCandies % studentsCount};
+    }
+    
+    //Speed checking
+    public boolean isOverSpeeding(int carKmph, int thresholdKmph) {
+        return (carKmph > thresholdKmph);
     }
 }
 
@@ -186,5 +197,13 @@ public class Main {
         int sum = Methods.add(10, 20);
         System.out.println("\nCalling Method:");
         System.out.println("Sum of 10 and 20 is: " + sum);
+        
+        System.out.println("Candy Distribution:");
+        int[] candyDetails = new Methods().candiesDistribution(30, 7);
+        System.out.println(candyDetails[0] + " candies are distributed evenly.");
+        System.out.println(candyDetails[1] + " candies are remaining after distribution.");
+        
+        System.out.println("Car Overspeeding:");
+        System.out.println(new Methods().isOverSpeeding(60, 75)? "Car crosses the threshold speed.": "Car doesn't crosses the threshold speed.");
     }
 }
