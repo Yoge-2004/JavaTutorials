@@ -165,6 +165,19 @@ class Methods {
     public boolean isOverSpeeding(int carKmph, int thresholdKmph) {
         return (carKmph > thresholdKmph);
     }
+    
+    //Method overloading
+    static void show() {
+        System.out.println("Welcome");
+    }
+    
+    static void show(String name) {
+        System.out.println("Hi " + name);
+    }
+    
+    static void show(String greeting, String name) {
+        System.out.println(greeting + ", " + name);
+    }
 }
 
 public class Main {
@@ -205,5 +218,10 @@ public class Main {
         
         System.out.println("Car Overspeeding:");
         System.out.println(new Methods().isOverSpeeding(60, 75)? "Car crosses the threshold speed.": "Car doesn't crosses the threshold speed.");
+        
+        //Compile Time Polymorphism 
+        new Methods().show();
+        new Methods().show("Alex");
+        new Methods().show("Hi", "Alex");
     }
 }
