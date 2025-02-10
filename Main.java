@@ -308,7 +308,7 @@ public class Main {
 
         if (String.valueOf(currentYear).length() == 4 && String.valueOf(yearJoined).length() == 4) {
             experience = currentYear - yearJoined;
-            System.out.println("Gross Salary: Rs." + BranchingStatement.grossSalary(basicSalary, experience));
+            System.out.println("Gross Salary: Rs." + BranchingStatements.grossSalary(basicSalary, experience));
         } else {
             System.out.println("Entered Invalid Year!");
         }
