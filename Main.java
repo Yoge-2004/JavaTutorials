@@ -180,6 +180,43 @@ class Methods {
     }
 }
 
+class BranchingStatements {
+    
+    //Checking the weather for outing 
+    static void determineWeather(boolean isSunny, double outdoorTemperature) {
+        if (isSunny && outdoorTemperature >= 30) {
+            System.out.println("The weather is just perfect for outing.");
+            return;
+        }
+        else if (isSunny && outdoorTemperature < 30) {
+            System.out.println("We can go for outing but wear the sweaters.");
+            return;
+        }
+        else if (!isSunny) {
+            System.out.println("The weather is not just perfect for outing.");
+            return;
+        }
+    }
+    
+    //Check whether the number is odd or even
+    static boolean isEven(int number) {
+        if (number % 2 == 0)
+            return true;
+        else
+            return false;
+    }
+    
+    //Check whether the number is leap year or not
+    static boolean isLeapYear(int year) {
+        if (year % 4 == 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+}
+
 public class Main {
     public static void main(String[] args) {
         // Calling methods from all classes
@@ -223,5 +260,10 @@ public class Main {
         new Methods().show();
         new Methods().show("Alex");
         new Methods().show("Hi", "Alex");
+        
+        //If statements 
+        BranchingStatements.determineWeather(true, 30.0);
+        System.out.println(BranchingStatements.isEven(3));
+        System.out.println(BranchingStatements.isLeapYear(2024));
     }
 }
