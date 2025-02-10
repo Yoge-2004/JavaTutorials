@@ -312,5 +312,6 @@ public class Main {
         } else {
             System.out.println("Entered Invalid Year!");
         }
+        scanner.close();
     }
 }
