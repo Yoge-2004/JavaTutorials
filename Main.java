@@ -212,6 +212,33 @@ class BranchingStatements {
             return false;
         }
     }
+
+    //Gross Salary Calculation
+    protected static double grossSalary(int basicSalary, int experience) {
+        int bonus = 0;
+        double hra = 0.0, da = 0.0;
+        if (experience > 3)
+            bonus = 2500;
+
+        if (basicSalary > 0 && basicSalary <= 10000) {
+            hra = (20 / 100.0) * basicSalary;
+            da = (80 / 100.0) * basicSalary;
+            return hra + da + bonus + basicSalary;
+        } else if (basicSalary > 10000 && basicSalary <= 20000) {
+            hra = (25 / 100.0) * basicSalary;
+            da = (90 / 100.0) * basicSalary;
+            return hra + da + bonus + basicSalary;
+        } else if (basicSalary > 20000) {
+            hra = (30 / 100.0) * basicSalary;
+            da = (95 / 100.0) * basicSalary;
+            return hra + da + bonus + basicSalary;
+        }
+        return 0.0;
+    }
+
+
+}
+
 }
 
 public class Main {
@@ -262,5 +289,28 @@ public class Main {
         BranchingStatements.determineWeather(true, 30.0);
         System.out.println(BranchingStatements.isEven(3));
         System.out.println(BranchingStatements.isLeapYear(2024));
+
+        //Gross Calculation 
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the basic salary: ");
+        int basicSalary = scanner.nextInt();
+        System.out.println();
+
+        System.out.print("Enter the current year: ");
+        int currentYear = scanner.nextInt();
+        System.out.println();
+
+        System.out.print("Enter the year of joining: ");
+        int yearJoined = scanner.nextInt();
+        System.out.println();
+        
+        int experience;
+
+        if (String.valueOf(currentYear).length() == 4 && String.valueOf(yearJoined).length() == 4) {
+            experience = currentYear - yearJoined;
+            System.out.println("Gross Salary: Rs." + BranchingStatement.grossSalary(basicSalary, experience));
+        } else {
+            System.out.println("Entered Invalid Year!");
+        }
     }
 }
