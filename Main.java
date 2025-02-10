@@ -1,5 +1,3 @@
-package javatutorial;
-
 import java.util.Scanner;
 
 class InputOutputStatements {
@@ -124,7 +122,7 @@ class Literals {
         char g = 97; // Equivalent to 'a'
         boolean h = true;
         String i = "Hello World!";
-        
+
         System.out.println("\nLiterals:");
         System.out.println("Byte: " + a);
         System.out.println("Short: " + b);
@@ -143,7 +141,7 @@ class TypeConversion {
         short a = 10;
         int b = a; // Implicit widening
         short c = (short) b; // Explicit narrowing
-        
+
         System.out.println("\nType Conversion:");
         System.out.println("Widening (short to int): " + b);
         System.out.println("Narrowing (int to short): " + c);
@@ -155,34 +153,33 @@ class Methods {
     public static int add(int a, int b) {
         return a + b;
     }
-    
-    //Candy(s) Distribution 
+
+    //Candy(s) Distribution
     public int[] candiesDistribution(int totalCandies, int studentsCount) {
         return new int[] {totalCandies / studentsCount, totalCandies % studentsCount};
     }
-    
+
     //Speed checking
     public boolean isOverSpeeding(int carKmph, int thresholdKmph) {
         return (carKmph > thresholdKmph);
     }
-    
+
     //Method overloading
     static void show() {
         System.out.println("Welcome");
     }
-    
+
     static void show(String name) {
         System.out.println("Hi " + name);
     }
-    
+
     static void show(String greeting, String name) {
         System.out.println(greeting + ", " + name);
     }
 }
 
 class BranchingStatements {
-    
-    //Checking the weather for outing 
+    //Checking the weather for outing
     static void determineWeather(boolean isSunny, double outdoorTemperature) {
         if (isSunny && outdoorTemperature >= 30) {
             System.out.println("The weather is just perfect for outing.");
@@ -195,15 +192,12 @@ class BranchingStatements {
             return;
         }
     }
-    
+
     //Check whether the number is odd or even
     static boolean isEven(int number) {
-        if (number % 2 == 0)
-            return true;
-        else
-            return false;
+        return number % 2 == 0;
     }
-    
+
     //Check whether the number is leap year or not
     static boolean isLeapYear(int year) {
         if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {
@@ -235,10 +229,6 @@ class BranchingStatements {
         }
         return 0.0;
     }
-
-
-}
-
 }
 
 public class Main {
@@ -271,26 +261,26 @@ public class Main {
         int sum = Methods.add(10, 20);
         System.out.println("\nCalling Method:");
         System.out.println("Sum of 10 and 20 is: " + sum);
-        
+
         System.out.println("Candy Distribution:");
         int[] candyDetails = new Methods().candiesDistribution(30, 7);
         System.out.println(candyDetails[0] + " candies are distributed evenly.");
         System.out.println(candyDetails[1] + " candies are remaining after distribution.");
-        
+
         System.out.println("Car Overspeeding:");
-        System.out.println(new Methods().isOverSpeeding(60, 75)? "Car crosses the threshold speed.": "Car doesn't crosses the threshold speed.");
-        
-        //Compile Time Polymorphism 
+        System.out.println(new Methods().isOverSpeeding(60, 75) ? "Car crosses the threshold speed." : "Car doesn't crosses the threshold speed.");
+
+        // Compile Time Polymorphism
         new Methods().show();
         new Methods().show("Alex");
         new Methods().show("Hi", "Alex");
-        
-        //If statements 
+
+        // If statements
         BranchingStatements.determineWeather(true, 30.0);
         System.out.println(BranchingStatements.isEven(3));
         System.out.println(BranchingStatements.isLeapYear(2024));
 
-        //Gross Calculation 
+        // Gross Calculation
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter the basic salary: ");
         int basicSalary = scanner.nextInt();
@@ -303,7 +293,7 @@ public class Main {
         System.out.print("Enter the year of joining: ");
         int yearJoined = scanner.nextInt();
         System.out.println();
-        
+
         int experience;
 
         if (String.valueOf(currentYear).length() == 4 && String.valueOf(yearJoined).length() == 4) {
