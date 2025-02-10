@@ -187,12 +187,10 @@ class BranchingStatements {
         if (isSunny && outdoorTemperature >= 30) {
             System.out.println("The weather is just perfect for outing.");
             return;
-        }
-        else if (isSunny && outdoorTemperature < 30) {
+        } else if (isSunny && outdoorTemperature < 30) {
             System.out.println("We can go for outing but wear the sweaters.");
             return;
-        }
-        else if (!isSunny) {
+        } else if (!isSunny) {
             System.out.println("The weather is not just perfect for outing.");
             return;
         }
@@ -210,8 +208,7 @@ class BranchingStatements {
     static boolean isLeapYear(int year) {
         if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
