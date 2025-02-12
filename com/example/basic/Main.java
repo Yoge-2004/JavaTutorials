@@ -49,7 +49,7 @@ public class Main {
             return (((-b + Math.sqrt(discriminant)) / denominator) + " and " + ((-b - Math.sqrt(discriminant)) / denominator) + " are the roots of the above quadratic equation.");
             
         } else {
-            return (-b / denominator) + "+" + (Math.sqrt(Math.abs(discriminant)) / denominator) + "i" + " and " + (-b / denominator) + "" + "-" + (Math.sqrt(Math.abs(discriminant)) / denominator) + "i are the roots of the above quadratic equation.");
+            return ((-b / denominator) + "+" + (Math.sqrt(Math.abs(discriminant)) / denominator) + "i" + " and " + (-b / denominator) + "" + "-" + (Math.sqrt(Math.abs(discriminant)) / denominator) + "i are the roots of the above quadratic equation.");
         }
     }
     
