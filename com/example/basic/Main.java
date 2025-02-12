@@ -12,8 +12,45 @@ public class Main {
         convertSecondsToTime(scanner);
         calculateBillAmount(scanner);
         calculateTotalSalary(scanner);
+        String roots = findQuadraticRoots(scanner);
+        
+        //Printing the result.
+        System.out.println(roots);
         
         scanner.close();
+    }
+    
+    
+    
+    //Method to find quadratic roots for the given equation.
+    private static String findQuadraticRoots(Scanner scanner) {
+        System.out.print("Enter the coefficient of (x^2): ");
+        int a = scanner.nextInt();
+        
+        System.out.print("Enter the coefficient of (x^1): ");
+        int b = scanner.nextInt();
+        
+        System.out.print("Enter the coefficient of (x^0): ");
+        int c = scanner.nextInt();
+        
+        System.out.println("The given quadratic equation: \n" + a + "x^2 + " + b + "x^1 + " + c + "x^0");
+        System.out.println();
+        
+        
+        double discriminant = Math.pow(b, 2) - (4 * a * c); //Finding Discriminant
+        int denominator = 2 * a; //Finding Denominator (for Optimization)
+        
+        //When Discriminant is 0.
+        if (discriminant == 0) {
+            return (-b/ denominator + " is a root of the above quadratic equation.");
+            
+        } else if (discriminant > 0) {
+            
+            return (((-b + Math.sqrt(discriminant)) / denominator) + " and " + ((-b - Math.sqrt(discriminant)) / denominator) + " are the roots of the above quadratic equation.");
+            
+        } else {
+            return (-b / denominator) + "+" + (Math.sqrt(Math.abs(discriminant)) / denominator) + "i" + " and " + (-b / denominator) + "" + "-" + (Math.sqrt(Math.abs(discriminant)) / denominator) + "i are the roots of the above quadratic equation.");
+        }
     }
     
     // Checks whether the entered character is a vowel or a consonant.
