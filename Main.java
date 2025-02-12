@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-// Class dedicated solely to grade calculation.
+//Class dedicated to Grade Calculation.
 class GradeCalculator {
     static char calculateGrade(int... subjectMarks) {
         int total = 0;
