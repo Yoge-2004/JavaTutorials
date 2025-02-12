@@ -38,7 +38,7 @@ public class Main {
         
         
         double discriminant = Math.pow(b, 2) - (4 * a * c); //Finding Discriminant
-        int denominator = 2 * a; //Finding Denominator (for Optimization)
+        double denominator = 2 * a; //Finding Denominator (for Optimization)
         
         //When Discriminant is 0.
         if (discriminant == 0) {
