@@ -1,3 +1,4 @@
+// File: com/example/patterns/RefactoredCode.java
 package com.example.patterns;
 
 import java.util.Scanner;
@@ -6,11 +7,9 @@ public class Pattern {
 
     public static void printStarPattern(int rows) {
         for (int i = 1; i <= rows; i++) {
-            // Print leading spaces for a right-aligned pattern
             for (int j = 1; j <= rows - i; j++) {
                 System.out.print(" ");
             }
-            // Print stars with a trailing space
             for (int k = 1; k <= i; k++) {
                 System.out.print("* ");
             }
@@ -20,11 +19,9 @@ public class Pattern {
 
     public static void printNumberPattern(int rows) {
         for (int i = 1; i <= rows; i++) {
-            // Print leading spaces
             for (int j = 1; j <= rows - i; j++) {
                 System.out.print(" ");
             }
-            // Print numbers from 1 to i
             for (int k = 1; k <= i; k++) {
                 System.out.print(k + " ");
             }
@@ -34,11 +31,9 @@ public class Pattern {
 
     public static void printAlphabetPattern(int rows) {
         for (int i = 1; i <= rows; i++) {
-            // Print leading spaces
             for (int j = 1; j <= rows - i; j++) {
                 System.out.print(" ");
             }
-            // Print alphabets from 'A' onward (where A = 65 in ASCII)
             for (int k = 1; k <= i; k++) {
                 System.out.print((char) (64 + k) + " ");
             }
@@ -48,7 +43,6 @@ public class Pattern {
 
     public static void printTrianglePattern(int rows) {
         for (int i = 1; i <= rows; i++) {
-            // Print i stars
             for (int j = 1; j <= i; j++) {
                 System.out.print("* ");
             }
@@ -58,7 +52,6 @@ public class Pattern {
 
     public static void printInvertedTrianglePattern(int rows) {
         for (int i = rows; i >= 1; i--) {
-            // Print i stars in inverted order
             for (int j = 1; j <= i; j++) {
                 System.out.print("* ");
             }
@@ -68,11 +61,9 @@ public class Pattern {
 
     public static void printCenteredTrianglePattern(int rows) {
         for (int i = 1; i <= rows; i++) {
-            // Print leading spaces for centering
             for (int j = 1; j < 2 * (rows - i + 1); j++) {
                 System.out.print(" ");
             }
-            // Print i stars with a space after each star
             for (int k = 1; k <= i; k++) {
                 System.out.print("* ");
             }
@@ -80,28 +71,33 @@ public class Pattern {
         }
     }
 
-    // Added binary pattern method (alternating 1s and 0s for each row)
     public static void printBinaryPattern(int rows) {
         int currentVal;
         for (int i = 1; i <= rows; i++) {
-            // Reset currentVal to 1 for odd-numbered rows
-            if (i % 2 != 0) {
-                currentVal = 1;
-            } else {
-                // For even-numbered rows, we continue with the last value from the previous row
-                // (Alternatively, you could reset it for each row if desired)
-                currentVal = 0;
-            }
+            currentVal = (i % 2 == 0) ? 0 : 1;
             for (int j = 1; j <= i; j++) {
                 System.out.print(currentVal + " ");
-                // Toggle between 1 and 0
                 currentVal = (currentVal + 1) % 2;
             }
             System.out.println();
         }
     }
 
-    // Method to call all pattern-printing methods
+    public static void printCrossPattern(int size) {
+        for (int i = 1; i <= size; i++) {
+            for (int j = 1; j <= size; j++) {
+                if ((i != (size / 2 + 1) && j == (size / 2 + 1)) || (i == (size / 2 + 1) && j != (size / 2 + 1))) {
+                    System.out.print("* ");
+                } else if (i == (size / 2 + 1) && j == (size / 2 + 1)) {
+                    System.out.print("# ");
+                } else {
+                    System.out.print("  ");
+                }
+            }
+            System.out.println();
+        }
+    }
+
     public static void printPatterns(int rows) {
         if (rows > 0) {
             System.out.println("Star Pattern:");
@@ -131,6 +127,10 @@ public class Pattern {
             System.out.println("Binary Pattern:");
             printBinaryPattern(rows);
             System.out.println();
+
+            System.out.println("Cross Pattern:");
+            printCrossPattern(rows);
+            System.out.println();
         } else {
             System.out.println("Rows should be greater than 0.");
         }
@@ -139,11 +139,9 @@ public class Pattern {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // Prompt the user for the number of rows
         System.out.print("Enter the number of rows: ");
         int rows = scanner.nextInt();
 
-        // Print all patterns
         printPatterns(rows);
         scanner.close();
     }
