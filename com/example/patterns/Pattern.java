@@ -3,7 +3,8 @@ package com.example.patterns;
 import java.util.Scanner;
 
 public class Pattern {
-    
+
+    // Hollow Inverted Pyramid
     public static void printHollowInvertedPyramid(int rows) {
         for (int i = rows; i >= 1; i--) {
             for (int j = rows - i; j >= 1; j--) {
@@ -19,7 +20,8 @@ public class Pattern {
             System.out.println();
         }
     }
-    
+
+    // Odd Pyramid
     public static void printOddPyramid(int rows) {
         for (int i = 1; i <= rows; i++) {
             for (int j = 2 * (rows - i); j >= 1; j--) {
@@ -31,7 +33,8 @@ public class Pattern {
             System.out.println();
         }
     }
-    
+
+    // Inverted Odd Pyramid
     public static void printInvertedOddPyramid(int rows) {
         for (int i = rows; i >= 1; i--) {
             for (int j = 1; j <= 2 * (rows - i); j++) {
@@ -44,6 +47,7 @@ public class Pattern {
         }
     }
 
+    // Zigzag Number Pattern
     public static void printZigzagNumberPattern(int rows) {
         int number = 1;
         for (int i = 1; i <= rows; i++) {
@@ -55,6 +59,7 @@ public class Pattern {
         }
     }
 
+    // Star Pattern
     public static void printStarPattern(int rows) {
         for (int i = 1; i <= rows; i++) {
             for (int j = 1; j <= rows - i; j++) {
@@ -67,6 +72,7 @@ public class Pattern {
         }
     }
 
+    // Number Pattern
     public static void printNumberPattern(int rows) {
         for (int i = 1; i <= rows; i++) {
             for (int j = 1; j <= rows - i; j++) {
@@ -79,6 +85,7 @@ public class Pattern {
         }
     }
 
+    // Alphabet Pattern
     public static void printAlphabetPattern(int rows) {
         for (int i = 1; i <= rows; i++) {
             for (int j = 1; j <= rows - i; j++) {
@@ -91,6 +98,7 @@ public class Pattern {
         }
     }
 
+    // Triangle Pattern
     public static void printTrianglePattern(int rows) {
         for (int i = 1; i <= rows; i++) {
             for (int j = 1; j <= i; j++) {
@@ -100,6 +108,7 @@ public class Pattern {
         }
     }
 
+    // Inverted Triangle Pattern
     public static void printInvertedTrianglePattern(int rows) {
         for (int i = rows; i >= 1; i--) {
             for (int j = 1; j <= i; j++) {
@@ -109,6 +118,7 @@ public class Pattern {
         }
     }
 
+    // Centered Triangle Pattern
     public static void printCenteredTrianglePattern(int rows) {
         for (int i = 1; i <= rows; i++) {
             for (int j = 1; j < 2 * (rows - i + 1); j++) {
@@ -121,6 +131,7 @@ public class Pattern {
         }
     }
 
+    // Binary Pattern
     public static void printBinaryPattern(int rows) {
         for (int i = 1; i <= rows; i++) {
             int currentVal = (i % 2 == 0) ? 0 : 1;
@@ -132,6 +143,7 @@ public class Pattern {
         }
     }
 
+    // Cross Pattern
     public static void printCrossPattern(int size) {
         for (int i = 1; i <= size; i++) {
             for (int j = 1; j <= size; j++) {
@@ -143,6 +155,53 @@ public class Pattern {
                 } else {
                     System.out.print("  ");
                 }
+            }
+            System.out.println();
+        }
+    }
+
+    // Half Butterfly Pattern
+    public static void printHalfButterflyPattern(int rows) {
+        for (int i = 1; i <= rows; i++) {
+            // Left Quarter of Butterfly
+            for (int j = 1; j <= i; j++) {
+                System.out.print("* ");
+            }
+            // White spaces (except on the last row, print an extra star)
+            if (i == rows) {
+                System.out.print("* ");
+            } else {
+                for (int k = 1; k < 2 * (rows - i + 1); k++) {
+                    System.out.print("  ");
+                }
+            }
+            // Right Quarter of Butterfly
+            for (int l = 1; l <= i; l++) {
+                System.out.print("* ");
+            }
+            System.out.println();
+        }
+    }
+
+    // Diamond Pattern
+    public static void printDiamondPattern(int rows) {
+        // Top part of Diamond
+        for (int i = 1; i <= rows; i++) {
+            for (int j = 1; j <= rows - i; j++) {
+                System.out.print(" ");
+            }
+            for (int k = 1; k <= i; k++) {
+                System.out.print("* ");
+            }
+            System.out.println();
+        }
+        // Bottom part of Diamond
+        for (int i = rows; i >= 1; i--) {
+            for (int j = rows - i + 1; j >= 1; j--) {
+                System.out.print(" ");
+            }
+            for (int k = i - 1; k >= 1; k--) {
+                System.out.print("* ");
             }
             System.out.println();
         }
@@ -201,6 +260,14 @@ public class Pattern {
 
         System.out.println("Cross Pattern:");
         printCrossPattern(rows);
+        System.out.println();
+
+        System.out.println("Half Butterfly Pattern:");
+        printHalfButterflyPattern(rows);
+        System.out.println();
+
+        System.out.println("Diamond Pattern:");
+        printDiamondPattern(rows);
         System.out.println();
     }
 
