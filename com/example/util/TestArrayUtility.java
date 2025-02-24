@@ -6,6 +6,10 @@ public class TestArrayUtility {
         int[] arr = {5, 2, 9, 2, 3, 10, 8};
         System.out.print("Original array: ");
         printArray(arr);
+        
+        int[] rotated = ArrayUtility.rotateFirstHalfElements(arr.clone());
+        System.out.print("After rotating first half: ");
+        printArray(rotated);
 
         System.out.println("Minimum: " + ArrayUtility.findMinimum(arr));
         System.out.println("Maximum: " + ArrayUtility.findMaximum(arr));
