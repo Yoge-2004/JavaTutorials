@@ -7,7 +7,7 @@ public class NumberOrderChecker {
             int lastDigit = number % 10;
             int secondLastDigit = (number / 10) % 10;
             
-            if (lastDigit < secondLastDigit) {
+            if (lastDigit <= secondLastDigit) {
                 return false;
             }
             number /= 10;
@@ -20,7 +20,7 @@ public class NumberOrderChecker {
             int lastDigit = number % 10;
             int secondLastDigit = (number / 10) % 10;
             
-            if (lastDigit > secondLastDigit) {
+            if (lastDigit >= secondLastDigit) {
                 return false;
             }
             number /= 10;
