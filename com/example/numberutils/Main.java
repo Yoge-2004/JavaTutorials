@@ -14,7 +14,8 @@ public class Main {
             System.out.println("2. Prime and Perfect Numbers in a range");
             System.out.println("3. Fibonacci Sequence");
             System.out.println("4. Find nth Prime");
-            System.out.println("5. Exit");
+            System.out.println("5. Check if a number is Increasing or Decreasing");
+            System.out.println("6. Exit");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
             
@@ -63,8 +64,24 @@ public class Main {
                     int nth = scanner.nextInt();
                     System.out.println(nth + "th prime number is " + NthPrimeOperations.nthPrime(nth));
                     break;
-                    
+
                 case 5:
+                    System.out.print("Enter a number to check if it is increasing or decreasing: ");
+                    int checkNumber = scanner.nextInt();
+                    
+                    boolean isIncreasing = NumberOrderChecker.isNonDecreasing(checkNumber);
+                    boolean isDecreasing = NumberOrderChecker.isNonIncreasing(checkNumber);
+                    
+                    if (isIncreasing) {
+                        System.out.println(checkNumber + " is an Increasing number.");
+                    } else if (isDecreasing) {
+                        System.out.println(checkNumber + " is a Decreasing number.");
+                    } else {
+                        System.out.println(checkNumber + " is neither Increasing nor Decreasing.");
+                    }
+                    break;
+                    
+                case 6:
                     exit = true;
                     System.out.println("Exiting program.");
                     break;
