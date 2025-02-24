@@ -1,6 +1,21 @@
 package com.example.util;
 
+import java.util.Arrays;
+
 public class ArrayUtility {
+
+    public static int[] rotateFirstHalfElements(int[] array) {
+        int halfSize = array.length / 2;
+        if (halfSize == 0) {
+            return array;
+        }
+        int temp = array[halfSize - 1];
+        for (int i = halfSize - 1; i > 0; i--) {
+            array[i] = array[i - 1];
+        }
+        array[0] = temp;
+        return array;
+    }
 
     public static int findMinimum(int[] array) {
         if (array.length == 1) {
@@ -655,4 +670,4 @@ public class ArrayUtility {
         }
         return array;
     }
-             }
+                       }
