@@ -3,7 +3,7 @@ package com.example.operations;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class ArrayOperations {
+public class ArrayUtility {
 
     public static int[] rotateSecondHalfRight(int[] array) {
         int halfSize = array.length / 2;
