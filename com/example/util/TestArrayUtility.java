@@ -1,170 +1,100 @@
 package com.example.util;
 
 import com.example.util.ArrayUtility;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class TestArrayUtility {
-
     public static void main(String[] args) {
-        int[] arr = {5, 2, 9, 2, 3, 10, 8};
-        System.out.print("Original array: ");
-        printArray(arr);
+        // Test for rotateSecondHalfRight
+        int[] array1 = {1, 2, 3, 4, 5, 6};
+        System.out.println("Original Array: " + Arrays.toString(array1));
+        ArrayUtility.rotateSecondHalfRight(array1);
+        System.out.println("Array after rotating second half right: " + Arrays.toString(array1));
 
-        // Check if ArrayOperations methods are static or need an object
-        int[] rotated = ArrayOperations.rotateFirstHalfElements(arr.clone());
-        System.out.print("After rotating first half: ");
-        printArray(rotated);
+        // Test for updateArrayElement
+        ArrayUtility.updateArrayElement(array1, 2, 99);
+        System.out.println("Array after updating element at index 2 to 99: " + Arrays.toString(array1));
 
-        System.out.println("Minimum: " + ArrayOperations.findMinimum(arr));
-        System.out.println("Maximum: " + ArrayOperations.findMaximum(arr));
-        System.out.println("2nd Minimum: " + ArrayOperations.nthMinimum(arr, 2));
-        System.out.println("2nd Maximum: " + ArrayOperations.nthMaximum(arr, 2));
+        // Test for findIndicesWithEqualNeighbors
+        int[] array2 = {1, 2, 1, 3, 4, 5};
+        ArrayList<Integer> indices = ArrayUtility.findIndicesWithEqualNeighbors(array2);
+        System.out.println("Indices with equal neighbors: " + indices);
 
-        System.out.println("Search 9: " + ArrayOperations.search(arr, 9));
-        System.out.print("Search all 2 (positions): ");
-        printArray(ArrayOperations.searchAll(arr, 2));
+        // Test for removeRange
+        int[] array3 = {10, 20, 30, 40, 50, 60};
+        array3 = ArrayUtility.removeRange(array3, 2, 4);
+        System.out.println("Array after removing elements from index 2 to 4: " + Arrays.toString(array3));
 
-        int[] arrDelete = arr.clone();
-        ArrayOperations.delete(arrDelete, 2);
-        System.out.print("After deleting first 2: ");
-        printArray(arrDelete);
+        // Test for mergeArraysWithReversedSecond
+        int[] array4 = {1, 2, 3};
+        int[] array5 = {4, 5, 6};
+        int[] mergedArray = ArrayUtility.mergeArraysWithReversedSecond(array4, array5);
+        System.out.println("Merged Array with second reversed: " + Arrays.toString(mergedArray));
 
-        int[] arrDeleteAll = arr.clone();
-        ArrayOperations.deleteAll(arrDeleteAll, 2);
-        System.out.print("After deleting all 2s: ");
-        printArray(arrDeleteAll);
+        // Test for rotateFirstHalfRight
+        int[] array6 = {1, 2, 3, 4, 5, 6};
+        System.out.println("Original Array: " + Arrays.toString(array6));
+        ArrayUtility.rotateFirstHalfRight(array6);
+        System.out.println("Array after rotating first half right: " + Arrays.toString(array6));
 
-        int[] arrShiftRight = arr.clone();
-        ArrayOperations.shiftRight(arrShiftRight, 2);
-        System.out.print("After shifting right by 2: ");
-        printArray(arrShiftRight);
+        // Test for getMinimumElement
+        int[] array7 = {5, 2, 9, 1, 7};
+        int minElement = ArrayUtility.getMinimumElement(array7);
+        System.out.println("Minimum element in the array: " + minElement);
 
-        int[] arrLeftShift = arr.clone();
-        arrLeftShift = ArrayOperations.leftShift(arrLeftShift, 2);
-        System.out.print("After left shifting by 2: ");
-        printArray(arrLeftShift);
+        // Test for getMaximumElement
+        int maxElement = ArrayUtility.getMaximumElement(array7);
+        System.out.println("Maximum element in the array: " + maxElement);
 
-        System.out.println("Sum: " + ArrayOperations.sum(arr));
-        System.out.println("Average: " + ArrayOperations.average(arr));
+        // Test for sumElements
+        int sum = ArrayUtility.sumElements(array7);
+        System.out.println("Sum of elements: " + sum);
 
-        System.out.print("Print array in reverse order: ");
-        ArrayOperations.printArrayReverse(arr);
-        System.out.println();
+        // Test for averageOfElements
+        double average = ArrayUtility.averageOfElements(array7);
+        System.out.println("Average of elements: " + average);
 
-        int[] arrReversed = arr.clone();
-        ArrayOperations.reverseArray(arrReversed);
-        System.out.print("Reversed array: ");
-        printArray(arrReversed);
+        // Test for reverseElements
+        int[] array8 = {1, 2, 3, 4, 5};
+        ArrayUtility.reverseElements(array8);
+        System.out.println("Array after reverse: " + Arrays.toString(array8));
 
-        System.out.println("Min of even-indexed elements: " + ArrayOperations.minOfEvenIndexedElements(arr));
-        System.out.print("Even-indexed elements: ");
-        ArrayOperations.printEvenIndexedElements(arr);
-        System.out.println();
-        System.out.print("Even-indexed elements reversed: ");
-        ArrayOperations.printEvenIndexedElementsReverse(arr);
-        System.out.println();
-        System.out.println("Sum of even-indexed elements: " + ArrayOperations.sumOfEvenIndexedElements(arr));
-        System.out.println("Average of even-indexed elements: " + ArrayOperations.averageOfEvenIndexedElements(arr));
+        // Test for getMinOfEvenIndices
+        int minEvenIndices = ArrayUtility.getMinOfEvenIndices(array7);
+        System.out.println("Minimum of elements at even indices: " + minEvenIndices);
 
-        System.out.println("Min of odd-indexed elements: " + ArrayOperations.minOfOddIndexedElements(arr));
-        System.out.print("Odd-indexed elements: ");
-        ArrayOperations.printOddIndexedElements(arr);
-        System.out.println();
-        System.out.print("Odd-indexed elements reversed: ");
-        ArrayOperations.printOddIndexedElementsReverse(arr);
-        System.out.println();
-        System.out.println("Sum of odd-indexed elements: " + ArrayOperations.sumOfOddIndexedElements(arr));
-        System.out.println("Average of odd-indexed elements: " + ArrayOperations.averageOfOddIndexedElements(arr));
+        // Test for sumElementsAtEvenIndices
+        int sumEvenIndices = ArrayUtility.sumElementsAtEvenIndices(array7);
+        System.out.println("Sum of elements at even indices: " + sumEvenIndices);
 
-        System.out.println("Min of first half: " + ArrayOperations.minOfFirstHalfElements(arr));
-        System.out.println("Max of first half: " + ArrayOperations.maxOfFirstHalfElements(arr));
-        System.out.print("First half reversed (printed): ");
-        ArrayOperations.printFirstHalfReverse(arr);
-        System.out.println();
-        int[] arrFirstHalfReversed = arr.clone();
-        ArrayOperations.reverseFirstHalf(arrFirstHalfReversed);
-        System.out.print("Array after reversing first half: ");
-        printArray(arrFirstHalfReversed);
-        System.out.println("Sum of first half: " + ArrayOperations.sumOfFirstHalfElements(arr));
-        System.out.println("Average of first half: " + ArrayOperations.averageOfFirstHalfElements(arr));
+        // Test for getMinOfOddIndices
+        int minOddIndices = ArrayUtility.getMinOfOddIndices(array7);
+        System.out.println("Minimum of elements at odd indices: " + minOddIndices);
 
-        System.out.println("Min of second half: " + ArrayOperations.minOfSecondHalfElements(arr));
-        System.out.println("Max of second half: " + ArrayOperations.maxOfSecondHalfElements(arr));
-        System.out.print("Second half reversed (printed): ");
-        ArrayOperations.printSecondHalfReverse(arr);
-        System.out.println();
-        int[] arrSecondHalfReversed = arr.clone();
-        ArrayOperations.reverseSecondHalf(arrSecondHalfReversed);
-        System.out.print("Array after reversing second half: ");
-        printArray(arrSecondHalfReversed);
-        System.out.println("Sum of second half: " + ArrayOperations.sumOfSecondHalfElements(arr));
-        System.out.println("Average of second half: " + ArrayOperations.averageOfSecondHalfElements(arr));
+        // Test for sumElementsAtOddIndices
+        int sumOddIndices = ArrayUtility.sumElementsAtOddIndices(array7);
+        System.out.println("Sum of elements at odd indices: " + sumOddIndices);
 
-        int[] arrSwap = arr.clone();
-        ArrayOperations.swapElements(arrSwap, 9, 3);
-        System.out.print("After swapping 9 and 3: ");
-        printArray(arrSwap);
+        // Test for getUniqueElements
+        int[] array9 = {1, 2, 2, 3, 4, 4, 5};
+        int[] uniqueElements = ArrayUtility.getUniqueElements(array9);
+        System.out.println("Unique elements: " + Arrays.toString(uniqueElements));
 
-        int[] unique = ArrayOperations.findUniqueElements(arr);
-        System.out.print("Unique elements: ");
-        printArray(unique);
-        int[] duplicates = ArrayOperations.findDuplicateElements(arr);
-        System.out.print("Duplicate elements: ");
-        printArray(duplicates);
+        // Test for removeDuplicateElements
+        int[] array10 = {1, 2, 2, 3, 3, 4};
+        int[] noDuplicates = ArrayUtility.removeDuplicateElements(array10);
+        System.out.println("Array after removing duplicates: " + Arrays.toString(noDuplicates));
 
-        int[] removedOddIndexed = ArrayOperations.removeOddIndexedElements(arr);
-        System.out.print("After removing odd-indexed elements: ");
-        printArray(removedOddIndexed);
-        int[] removedEvenIndexed = ArrayOperations.removeEvenIndexedElements(arr);
-        System.out.print("After removing even-indexed elements: ");
-        printArray(removedEvenIndexed);
+        // Test for getCommonElements
+        int[] array11 = {1, 2, 3, 4};
+        int[] array12 = {3, 4, 5, 6};
+        int[] commonElements = ArrayUtility.getCommonElements(array11, array12);
+        System.out.println("Common elements: " + Arrays.toString(commonElements));
 
-        int[] removedDuplicates = ArrayOperations.removeDuplicates(arr);
-        System.out.print("After removing duplicates: ");
-        printArray(removedDuplicates);
-
-        int[] arr2 = {3, 5, 7, 2, 11};
-        System.out.print("Second array: ");
-        printArray(arr2);
-        int[] common = ArrayOperations.findCommonElements(arr, arr2);
-        System.out.print("Common elements: ");
-        printArray(common);
-        int[] uncommon = ArrayOperations.findUncommonElements(arr, arr2);
-        System.out.print("Uncommon elements: ");
-        printArray(uncommon);
-
-        int[] arrReverseOdd = arr.clone();
-        ArrayOperations.reverseOddIndexedElements(arrReverseOdd);
-        System.out.print("After reversing odd-indexed elements: ");
-        printArray(arrReverseOdd);
-        int[] arrReverseEven = arr.clone();
-        ArrayOperations.reverseEvenIndexedElements(arrReverseEven);
-        System.out.print("After reversing even-indexed elements: ");
-        printArray(arrReverseEven);
-        int[] arrSwapAdjacent = arr.clone();
-        ArrayOperations.swapAdjacentOddEvenElements(arrSwapAdjacent);
-        System.out.print("After swapping adjacent odd-even elements: ");
-        printArray(arrSwapAdjacent);
-
-        int[] missed = ArrayOperations.findMissedElements(arr);
-        System.out.print("Missed elements between min and max: ");
-        printArray(missed);
-
-        int[] removedElements = ArrayOperations.removeElements(arr, arr2);
-        System.out.print("After removing elements of second array from first: ");
-        printArray(removedElements);
-
-        int[] retainedElements = ArrayOperations.retainElements(arr, arr2);
-        System.out.print("After retaining only elements of first that are in second: ");
-        printArray(retainedElements);
-
-        int[] merged = ArrayOperations.mergeArrays(arr, arr2);
-        System.out.print("Merged array: ");
-        printArray(merged);
-    }
-
-    public static void printArray(int[] arr) {
-        for (int x : arr) {
-            System.out.print(x + " ");
-        }
-        System.out.println();
+        // Test for getUncommonElements
+        int[] uncommonElements = ArrayUtility.getUncommonElements(array11, array12);
+        System.out.println("Uncommon elements: " + Arrays.toString(uncommonElements));
     }
 }
