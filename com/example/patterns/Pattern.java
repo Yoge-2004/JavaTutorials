@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Pattern {
 
-    // Hollow Inverted Pyramid
+    // Hollow Inverted Pyramid  
     public static void printHollowInvertedPyramid(int rows) {
         for (int i = rows; i >= 1; i--) {
             for (int j = rows - i; j >= 1; j--) {
@@ -21,7 +21,7 @@ public class Pattern {
         }
     }
 
-    // Odd Pyramid
+    // Odd Pyramid  
     public static void printOddPyramid(int rows) {
         for (int i = 1; i <= rows; i++) {
             for (int j = 2 * (rows - i); j >= 1; j--) {
@@ -34,7 +34,7 @@ public class Pattern {
         }
     }
 
-    // Inverted Odd Pyramid
+    // Inverted Odd Pyramid  
     public static void printInvertedOddPyramid(int rows) {
         for (int i = rows; i >= 1; i--) {
             for (int j = 1; j <= 2 * (rows - i); j++) {
@@ -47,7 +47,7 @@ public class Pattern {
         }
     }
 
-    // Zigzag Number Pattern
+    // Zigzag Number Pattern  
     public static void printZigzagNumberPattern(int rows) {
         int number = 1;
         for (int i = 1; i <= rows; i++) {
@@ -59,7 +59,7 @@ public class Pattern {
         }
     }
 
-    // Star Pattern
+    // Star Pattern  
     public static void printStarPattern(int rows) {
         for (int i = 1; i <= rows; i++) {
             for (int j = 1; j <= rows - i; j++) {
@@ -72,7 +72,7 @@ public class Pattern {
         }
     }
 
-    // Number Pattern
+    // Number Pattern  
     public static void printNumberPattern(int rows) {
         for (int i = 1; i <= rows; i++) {
             for (int j = 1; j <= rows - i; j++) {
@@ -85,7 +85,7 @@ public class Pattern {
         }
     }
 
-    // Alphabet Pattern
+    // Alphabet Pattern  
     public static void printAlphabetPattern(int rows) {
         for (int i = 1; i <= rows; i++) {
             for (int j = 1; j <= rows - i; j++) {
@@ -98,7 +98,7 @@ public class Pattern {
         }
     }
 
-    // Triangle Pattern
+    // Triangle Pattern  
     public static void printTrianglePattern(int rows) {
         for (int i = 1; i <= rows; i++) {
             for (int j = 1; j <= i; j++) {
@@ -108,7 +108,7 @@ public class Pattern {
         }
     }
 
-    // Inverted Triangle Pattern
+    // Inverted Triangle Pattern  
     public static void printInvertedTrianglePattern(int rows) {
         for (int i = rows; i >= 1; i--) {
             for (int j = 1; j <= i; j++) {
@@ -118,7 +118,7 @@ public class Pattern {
         }
     }
 
-    // Centered Triangle Pattern
+    // Centered Triangle Pattern  
     public static void printCenteredTrianglePattern(int rows) {
         for (int i = 1; i <= rows; i++) {
             for (int j = 1; j < 2 * (rows - i + 1); j++) {
@@ -131,7 +131,7 @@ public class Pattern {
         }
     }
 
-    // Binary Pattern
+    // Binary Pattern  
     public static void printBinaryPattern(int rows) {
         for (int i = 1; i <= rows; i++) {
             int currentVal = (i % 2 == 0) ? 0 : 1;
@@ -143,7 +143,7 @@ public class Pattern {
         }
     }
 
-    // Cross Pattern
+    // Cross Pattern  
     public static void printCrossPattern(int size) {
         for (int i = 1; i <= size; i++) {
             for (int j = 1; j <= size; j++) {
@@ -160,14 +160,14 @@ public class Pattern {
         }
     }
 
-    // Half Butterfly Pattern
+    // Half Butterfly Pattern  
     public static void printHalfButterflyPattern(int rows) {
         for (int i = 1; i <= rows; i++) {
-            // Left Quarter of Butterfly
+            // Left Quarter of Butterfly  
             for (int j = 1; j <= i; j++) {
                 System.out.print("* ");
             }
-            // White spaces (except on the last row, print an extra star)
+            // White spaces (except on the last row, print an extra star)  
             if (i == rows) {
                 System.out.print("* ");
             } else {
@@ -175,7 +175,7 @@ public class Pattern {
                     System.out.print("  ");
                 }
             }
-            // Right Quarter of Butterfly
+            // Right Quarter of Butterfly  
             for (int l = 1; l <= i; l++) {
                 System.out.print("* ");
             }
@@ -183,9 +183,9 @@ public class Pattern {
         }
     }
 
-    // Diamond Pattern
+    // Diamond Pattern  
     public static void printDiamondPattern(int rows) {
-        // Top part of Diamond
+        // Top part of Diamond  
         for (int i = 1; i <= rows; i++) {
             for (int j = 1; j <= rows - i; j++) {
                 System.out.print(" ");
@@ -195,7 +195,7 @@ public class Pattern {
             }
             System.out.println();
         }
-        // Bottom part of Diamond
+        // Bottom part of Diamond  
         for (int i = rows; i >= 1; i--) {
             for (int j = rows - i + 1; j >= 1; j--) {
                 System.out.print(" ");
@@ -204,6 +204,24 @@ public class Pattern {
                 System.out.print("* ");
             }
             System.out.println();
+        }
+    }
+
+    // Diagonal Pattern (with letters on the diagonal and numbers elsewhere)
+    public static void printDiagonalPattern(int rows) {
+        char ch = 'A';
+        int num = 2, temp = 3;
+        for (int i = 1; i <= rows; i++) {
+            for (int j = 1; j <= rows; j++) {
+                if (i == j) {
+                    System.out.print(ch++ + " ");
+                    num++;
+                } else {
+                    System.out.print(num++ + " ");
+                }
+            }
+            System.out.println();
+            num = temp++;
         }
     }
 
@@ -269,14 +287,23 @@ public class Pattern {
         System.out.println("Diamond Pattern:");
         printDiamondPattern(rows);
         System.out.println();
+
+        // Call the Diagonal Pattern from within printAllPatterns
+        System.out.println("Diagonal Pattern:");
+        printDiagonalPattern(rows);
+        System.out.println();
     }
 
+    // Main method  
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter the number of rows: ");
         int rows = scanner.nextInt();
         System.out.println();
+
+        System.out.println("=== Printing All Patterns ===");
         printAllPatterns(rows);
+
         scanner.close();
     }
 }
