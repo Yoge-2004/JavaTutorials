@@ -15,7 +15,8 @@ public class Main {
             System.out.println("3. Fibonacci Sequence");
             System.out.println("4. Find nth Prime");
             System.out.println("5. Check if a number is Increasing or Decreasing");
-            System.out.println("6. Exit");
+            System.out.println("6. Swap Adjacent Digits");
+            System.out.println("7. Exit");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
             
@@ -80,8 +81,19 @@ public class Main {
                         System.out.println(checkNumber + " is neither Increasing nor Decreasing.");
                     }
                     break;
-                    
+
                 case 6:
+                    System.out.print("Enter a number to swap adjacent digits: ");
+                    int swapNumber = scanner.nextInt();
+                    try {
+                        int swapped = NumberSwapper.swapAdjacentDigits(swapNumber);
+                        System.out.println("Swapped Number: " + swapped);
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                    
+                case 7:
                     exit = true;
                     System.out.println("Exiting program.");
                     break;
