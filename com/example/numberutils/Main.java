@@ -17,7 +17,8 @@ public class Main {
             System.out.println("5. Check if a number is Increasing or Decreasing");
             System.out.println("6. Swap Adjacent Digits");
             System.out.println("7. Check if two numbers are Anagrams");
-            System.out.println("8. Exit");
+            System.out.println("8. Neon Number");
+            System.out.println("9. Exit");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
             
@@ -109,6 +110,18 @@ public class Main {
                     break;
 
                 case 8:
+                    System.out.print("Enter the number: ");
+                    int number = scanner.nextInt();
+
+                    boolean neonResult = NeonNumber.isNeon(number);
+                    if (neonResult) {
+                        System.out.println(number + " is Neon");
+                    } else {
+                        System.out.println(number + " is not Neon");
+                    }
+                    break;
+                    
+                case 9:
                     exit = true;
                     System.out.println("Exiting program.");
                     break;
