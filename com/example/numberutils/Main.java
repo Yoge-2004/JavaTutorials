@@ -16,7 +16,8 @@ public class Main {
             System.out.println("4. Find nth Prime");
             System.out.println("5. Check if a number is Increasing or Decreasing");
             System.out.println("6. Swap Adjacent Digits");
-            System.out.println("7. Exit");
+            System.out.println("7. Check if two numbers are Anagrams");
+            System.out.println("8. Exit");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
             
@@ -94,6 +95,20 @@ public class Main {
                     break;
                     
                 case 7:
+                    System.out.print("Enter first number: ");
+                    int num1 = scanner.nextInt();
+                    System.out.print("Enter second number: ");
+                    int num2 = scanner.nextInt();
+                    
+                    boolean anagramResult = NumberAnagram.isAnagram(num1, num2);
+                    if (anagramResult) {
+                        System.out.println(num1 + " and " + num2 + " are Anagrams.");
+                    } else {
+                        System.out.println(num1 + " and " + num2 + " are NOT Anagrams.");
+                    }
+                    break;
+
+                case 8:
                     exit = true;
                     System.out.println("Exiting program.");
                     break;
