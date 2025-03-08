@@ -1,0 +1,131 @@
+package com.example.stringoperations;
+
+public class StringOperations {
+
+    // Check if a string is Palindrome
+    public static boolean isPalindrome(String str) {
+        String reversed = new StringBuilder(str).reverse().toString();
+        return str.equalsIgnoreCase(reversed);
+    }
+
+    // Check if two strings are Anagrams
+    public static boolean isAnagram(String str1, String str2) {
+        char[] arr1 = str1.replaceAll("\\s", "").toLowerCase().toCharArray();
+        char[] arr2 = str2.replaceAll("\\s", "").toLowerCase().toCharArray();
+        java.util.Arrays.sort(arr1);
+        java.util.Arrays.sort(arr2);
+        return java.util.Arrays.equals(arr1, arr2);
+    }
+
+    // Check if a string is Pangram
+    public static boolean isPangram(String str) {
+        boolean[] alphabet = new boolean[26];
+        str = str.toLowerCase();
+        for (char ch : str.toCharArray()) {
+            if (ch >= 'a' && ch <= 'z') {
+                alphabet[ch - 'a'] = true;
+            }
+        }
+        for (boolean letter : alphabet) {
+            if (!letter) return false;
+        }
+        return true;
+    }
+
+    // Convert Binary to Decimal
+    public static int binaryToDecimal(String binary) {
+        return Integer.parseInt(binary, 2);
+    }
+
+    // Convert Decimal to Binary
+    public static String decimalToBinary(int decimal) {
+        return Integer.toBinaryString(decimal);
+    }
+
+    // Count characters to make two strings equal
+    public static int countCharsToEqual(String s1, String s2) {
+        int freq[] = new int[26];
+        for (char ch : s1.toCharArray()) {
+            freq[ch - 'a']++;
+        }
+        for (char ch : s2.toCharArray()) {
+            freq[ch - 'a']--;
+        }
+        int deletions = 0;
+        for (int count : freq) {
+            deletions += Math.abs(count);
+        }
+        return deletions;
+    }
+
+    // Validate 'x' and 'y' pattern in a string
+    public static int isValidXYPattern(String s) {
+        char arr[] = s.toCharArray();
+        int n = 0;
+        for (char ch : arr) {
+            n = ch == 'x' ? ++n : --n;
+        }
+        if (n != 0) return 0;
+
+        int xCount = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == 'x') {
+                xCount++;
+            } else if (s.charAt(i) == 'y') {
+                xCount--;
+                if ((i + 1) != s.length() && s.charAt(i + 1) == 'x' && xCount != 0) {
+                    return 0;
+                }
+            }
+        }
+        return (xCount == 0) ? 1 : 0;
+    }
+
+    // Demonstrate String, StringBuilder, StringBuffer methods
+    public static void demonstrateStringMethods() {
+        System.out.println("\nString Methods Demonstration:");
+        String str = "Hello, World!";
+        System.out.println("Original String: " + str);
+        System.out.println("Length: " + str.length());
+        System.out.println("Character at index 4: " + str.charAt(4));
+        System.out.println("Index of 'o': " + str.indexOf('o'));
+        System.out.println("Last index of 'o': " + str.lastIndexOf('o'));
+        System.out.println("Uppercase: " + str.toUpperCase());
+        System.out.println("Lowercase: " + str.toLowerCase());
+        System.out.println("Substring (7, 12): " + str.substring(7, 12));
+        System.out.println("Replace 'o' with 'x': " + str.replace('o', 'x'));
+        System.out.println("Starts with 'Hello': " + str.startsWith("Hello"));
+        System.out.println("Ends with 'World!': " + str.endsWith("World!"));
+        System.out.println("Contains 'World': " + str.contains("World"));
+        System.out.println("Trim (removes leading and trailing spaces): '" + "   Java   ".trim() + "'");
+        System.out.println("Split: " + java.util.Arrays.toString(str.split(", ")));
+
+        StringBuilder sb = new StringBuilder("Welcome");
+        System.out.println("\nStringBuilder Operations:");
+        sb.append(" to Java");
+        System.out.println("After Append: " + sb);
+        sb.insert(7, " Everyone,");
+        System.out.println("After Insert: " + sb);
+        sb.replace(0, 7, "Hello");
+        System.out.println("After Replace: " + sb);
+        sb.delete(6, 15);
+        System.out.println("After Delete: " + sb);
+        sb.reverse();
+        System.out.println("After Reverse: " + sb);
+        sb.setLength(5);
+        System.out.println("After Set Length: " + sb);
+
+        StringBuffer sbf = new StringBuffer("BufferDemo");
+        System.out.println("\nStringBuffer Operations:");
+        sbf.append(" Example");
+        System.out.println("After Append: " + sbf);
+        sbf.insert(6, "XYZ");
+        System.out.println("After Insert: " + sbf);
+        sbf.replace(0, 6, "New");
+        System.out.println("After Replace: " + sbf);
+        sbf.delete(3, 7);
+        System.out.println("After Delete: " + sbf);
+        sbf.reverse();
+        System.out.println("After Reverse: " + sbf);
+    }
+}
