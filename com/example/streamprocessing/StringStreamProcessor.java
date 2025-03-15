@@ -1,6 +1,7 @@
 package com.example.streamprocessing;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.regex.*;
 import java.util.stream.*;
 
@@ -8,258 +9,241 @@ public class StringStreamProcessor {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // Basic String Analysis: Count digits, letters, uppercase and lowercase characters.
-        System.out.println("Enter a string for basic analysis (digits, letters, case counts):");
-        String basicInput = scanner.nextLine();
-        long basicDigits = basicInput.chars().filter(Character::isDigit).count();
-        long basicLetters = basicInput.chars().filter(Character::isLetter).count();
-        long basicUppercase = basicInput.chars().filter(Character::isUpperCase).count();
-        long basicLowercase = basicInput.chars().filter(Character::isLowerCase).count();
-        System.out.println("Basic Analysis Results:");
-        System.out.println("  Digits: " + basicDigits);
-        System.out.println("  Letters: " + basicLetters);
-        System.out.println("  Uppercase letters: " + basicUppercase);
-        System.out.println("  Lowercase letters: " + basicLowercase);
+        // Basic analysis using streams
+        System.out.println("Enter a string for basic analysis (using streams):");
+        String input = scanner.nextLine();
+        long digitCount = input.chars().filter(Character::isDigit).count();
+        long letterCount = input.chars().filter(Character::isLetter).count();
+        long upperCount = input.chars().filter(Character::isUpperCase).count();
+        long lowerCount = input.chars().filter(Character::isLowerCase).count();
+        System.out.println("Digits: " + digitCount);
+        System.out.println("Letters: " + letterCount);
+        System.out.println("Uppercase: " + upperCount);
+        System.out.println("Lowercase: " + lowerCount);
         System.out.println();
 
-        // Palindrome Detection: Get words and find the longest palindromic word(s).
-        System.out.println("Enter words separated by spaces for palindrome detection:");
-        String palindromeInput = scanner.nextLine();
-        String[] palindromeWords = palindromeInput.split("\\s+");
-        int maxPalindromeLength = Arrays.stream(palindromeWords)
-                .map(String::toLowerCase)
-                .filter(StringStreamProcessor::isPalindrome)
-                .mapToInt(String::length)
-                .max()
-                .orElse(0);
-        List<String> longestPalindromes = Arrays.stream(palindromeWords)
-                .map(String::toLowerCase)
-                .filter(StringStreamProcessor::isPalindrome)
-                .filter(word -> word.length() == maxPalindromeLength)
-                .toList();
-        System.out.println("Longest palindrome(s) of length " + maxPalindromeLength + ": " + longestPalindromes);
+        // Palindrome detection using streams
+        System.out.println("Enter words (separated by spaces) for palindrome detection:");
+        String wordsInput = scanner.nextLine();
+        String[] words = wordsInput.split("\\s+");
+        int maxPalLength = Arrays.stream(words)
+            .map(String::toLowerCase)
+            .filter(StringStreamProcessor::isPalindrome)
+            .mapToInt(String::length)
+            .max()
+            .orElse(0);
+        List<String> longestPalindromes = Arrays.stream(words)
+            .map(String::toLowerCase)
+            .filter(s -> s.length() == maxPalLength && isPalindrome(s))
+            .collect(Collectors.toList());
+        System.out.println("Longest palindrome(s) with length " + maxPalLength + ": " + longestPalindromes);
         System.out.println();
 
-        // Random Uppercase String Generation: Generate a string of 30 random uppercase letters.
-        Random random = new Random();
-        String randomUppercase = IntStream.generate(() -> random.nextInt(26) + 'A')
-                .limit(30)
-                .mapToObj(ch -> String.valueOf((char) ch))
-                .collect(Collectors.joining());
-        System.out.println("Random uppercase string: " + randomUppercase);
-        long distinctLetters = randomUppercase.chars()
-                .map(Character::toLowerCase)
-                .filter(Character::isLetter)
-                .distinct()
-                .count();
-        System.out.println("Contains all 26 letters? " + (distinctLetters == 26));
+        // Random uppercase string generation using streams
+        System.out.println("Random uppercase string (30 characters):");
+        String randomUpper = IntStream.generate(() -> new Random().nextInt(26) + 'A')
+            .limit(30)
+            .mapToObj(c -> String.valueOf((char)c))
+            .collect(Collectors.joining());
+        System.out.println(randomUpper);
+        long distinctCount = randomUpper.chars()
+            .map(Character::toLowerCase)
+            .filter(Character::isLetter)
+            .distinct()
+            .count();
+        System.out.println("Contains all 26 letters? " + (distinctCount == 26));
         System.out.println();
 
-        // Remove Character and Frequency Analysis: Remove a character from a string and analyze frequency.
-        System.out.println("Enter a string for frequency analysis:");
+        // Frequency analysis using streams
+        System.out.println("Enter a string for frequency analysis (using streams):");
         String freqInput = scanner.nextLine();
-        System.out.println("Enter a character to remove from the string:");
-        char removeChar = scanner.nextLine().charAt(0);
-        String modifiedString = freqInput.chars()
-                .mapToObj(ch -> String.valueOf((char) ch))
-                .filter(s -> s.charAt(0) != removeChar)
-                .collect(Collectors.joining());
-        System.out.println("String after removing '" + removeChar + "': " + modifiedString);
-        Map<Character, Integer> freqMap = new LinkedHashMap<>();
-        for (char c : modifiedString.toCharArray()) {
-            freqMap.put(c, freqMap.getOrDefault(c, 0) + 1);
-        }
-        Optional<Character> mostFreq = freqMap.entrySet().stream()
-                .max(Map.Entry.comparingByValue())
-                .map(Map.Entry::getKey);
-        Optional<Character> leastFreq = freqMap.entrySet().stream()
-                .min(Map.Entry.comparingByValue())
-                .map(Map.Entry::getKey);
-        System.out.println("Most frequent character: " + (mostFreq.isPresent() ? mostFreq.get() : "None"));
-        System.out.println("Least frequent character: " + (leastFreq.isPresent() ? leastFreq.get() : "None"));
+        System.out.println("Enter a character to remove:");
+        char remChar = scanner.nextLine().charAt(0);
+        String modified = freqInput.chars()
+            .mapToObj(c -> (char)c)
+            .filter(ch -> ch != remChar)
+            .map(String::valueOf)
+            .collect(Collectors.joining());
+        System.out.println("Modified string after removing '" + remChar + "': " + modified);
+        Map<Character, Long> freqMap = modified.chars()
+            .mapToObj(c -> (char)c)
+            .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        freqMap.forEach((k, v) -> System.out.println("Character: " + k + ", Count: " + v));
         System.out.println();
 
-        // Decompress a Compressed Sequence: Expand a sequence like "A2B3C4D1" into its full form.
-        System.out.println("Enter a compressed sequence (format like A2B3C4D1):");
-        String compressedSequence = scanner.nextLine();
-        String decompressedSequence = IntStream.range(0, compressedSequence.length() / 2)
-                .mapToObj(i -> String.valueOf(compressedSequence.charAt(2 * i))
-                        .repeat(Character.getNumericValue(compressedSequence.charAt(2 * i + 1))))
-                .collect(Collectors.joining());
-        System.out.println("Decompressed sequence: " + decompressedSequence);
+        // Decompress a compressed sequence using streams
+        System.out.println("Enter a compressed sequence (e.g., A2B3C4D1):");
+        String compSeq = scanner.nextLine();
+        String decompressed = IntStream.range(0, compSeq.length() / 2)
+            .mapToObj(i -> String.valueOf(compSeq.charAt(2 * i))
+                    .repeat(Character.getNumericValue(compSeq.charAt(2 * i + 1))))
+            .collect(Collectors.joining());
+        System.out.println("Decompressed sequence: " + decompressed);
         System.out.println();
 
-        // Sentence Word Analysis: Identify the longest and shortest words in a sentence.
+        // Word analysis (longest and shortest) using streams
         System.out.println("Enter a sentence for word analysis:");
-        String sentenceInput = scanner.nextLine();
-        String[] sentenceWords = sentenceInput.split("\\s+");
-        String longestWord = Arrays.stream(sentenceWords)
-                .max(Comparator.comparingInt(String::length))
-                .orElse("");
-        String shortestWord = Arrays.stream(sentenceWords)
-                .min(Comparator.comparingInt(String::length))
-                .orElse("");
+        String sentence = scanner.nextLine();
+        String[] sentWords = sentence.split("\\s+");
+        String longestWord = Arrays.stream(sentWords)
+            .max(Comparator.comparingInt(String::length))
+            .orElse("");
+        String shortestWord = Arrays.stream(sentWords)
+            .min(Comparator.comparingInt(String::length))
+            .orElse("");
         System.out.println("Longest word: " + longestWord);
         System.out.println("Shortest word: " + shortestWord);
         System.out.println();
 
-        // Title Formatting: Capitalize the first letter of each word.
-        System.out.println("Enter a title to format (each word's first letter will be capitalized):");
-        String titleInput = scanner.nextLine();
-        String formattedTitle = Arrays.stream(titleInput.split("\\s+"))
-                .map(word -> word.substring(0, 1).toUpperCase() + word.substring(1))
-                .collect(Collectors.joining(" "));
+        // Title formatting using streams
+        System.out.println("Enter a title for formatting:");
+        String title = scanner.nextLine();
+        String formattedTitle = Arrays.stream(title.split("\\s+"))
+            .map(word -> word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase())
+            .collect(Collectors.joining(" "));
         System.out.println("Formatted Title: " + formattedTitle);
         System.out.println();
 
-        // Unique and Duplicate Characters Analysis: Display characters occurring once and more than once.
-        System.out.println("Enter a string to analyze unique and duplicate characters:");
-        String uniqueDupInput = scanner.nextLine();
-        Map<Character, Integer> uniqueDupMap = new LinkedHashMap<>();
-        for (char c : uniqueDupInput.toCharArray()) {
-            uniqueDupMap.put(c, uniqueDupMap.getOrDefault(c, 0) + 1);
-        }
-        String uniqueChars = uniqueDupMap.entrySet().stream()
-                .filter(e -> e.getValue() == 1)
-                .map(e -> String.valueOf(e.getKey()))
-                .collect(Collectors.joining());
-        String duplicateChars = uniqueDupMap.entrySet().stream()
-                .filter(e -> e.getValue() > 1)
-                .map(e -> String.valueOf(e.getKey()))
-                .collect(Collectors.joining());
+        // Unique and duplicate characters using streams
+        System.out.println("Enter a string for unique/duplicate analysis:");
+        String uniqueDup = scanner.nextLine();
+        Map<Character, Long> charFreq = uniqueDup.chars()
+            .mapToObj(c -> (char)c)
+            .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        String uniqueChars = charFreq.entrySet().stream()
+            .filter(e -> e.getValue() == 1)
+            .map(e -> e.getKey().toString())
+            .collect(Collectors.joining());
+        String duplicateChars = charFreq.entrySet().stream()
+            .filter(e -> e.getValue() > 1)
+            .map(e -> e.getKey().toString())
+            .collect(Collectors.joining());
         System.out.println("Unique characters: " + uniqueChars);
         System.out.println("Duplicate characters: " + duplicateChars);
-        uniqueDupMap.entrySet().stream()
-                .min(Comparator.comparingInt(Map.Entry::getValue))
-                .ifPresent(e -> System.out.println("Character with minimum frequency: " + e.getKey()));
-        char firstUnique = uniqueDupMap.entrySet().stream()
-                .filter(e -> e.getValue() == 1)
-                .map(Map.Entry::getKey)
-                .findFirst().orElse('\0');
-        char firstDuplicate = uniqueDupMap.entrySet().stream()
-                .filter(e -> e.getValue() > 1)
-                .map(Map.Entry::getKey)
-                .findFirst().orElse('\0');
-        System.out.println("First unique character: " + firstUnique);
-        System.out.println("First duplicate character: " + firstDuplicate);
         System.out.println();
 
-        // Reverse Sentence Words Order and Reverse Each Word: Process a sentence in two ways.
-        System.out.println("Enter a sentence to reverse its word order and to reverse each individual word:");
-        String reverseSentenceInput = scanner.nextLine();
-        String[] reverseWords = reverseSentenceInput.split("\\s+");
-        List<String> reverseList = new ArrayList<>(Arrays.asList(reverseWords));
-        Collections.reverse(reverseList);
-        System.out.println("Sentence with reversed word order: " + String.join(" ", reverseList));
-        String reversedEachWord = Arrays.stream(reverseWords)
-                .map(word -> new StringBuilder(word).reverse().toString())
-                .collect(Collectors.joining(" "));
-        System.out.println("Sentence with each word reversed: " + reversedEachWord);
+        // Reverse sentence: reverse word order and reverse each word using streams
+        System.out.println("Enter a sentence to reverse its word order and to reverse each word:");
+        String revSentence = scanner.nextLine();
+        String[] revWords = revSentence.split("\\s+");
+        List<String> reversedOrder = Arrays.asList(revWords);
+        Collections.reverse(reversedOrder);
+        System.out.println("Reversed word order: " + String.join(" ", reversedOrder));
+        String eachWordReversed = Arrays.stream(revWords)
+            .map(word -> new StringBuilder(word).reverse().toString())
+            .collect(Collectors.joining(" "));
+        System.out.println("Each word reversed: " + eachWordReversed);
         System.out.println();
 
-        // Decompress Complex Segments: Expand segments from a complex compressed string.
-        System.out.println("Enter a compressed segment string (format like '2{ABC} 3{XYZ}, 5{DEF}'):");
-        String complexCompressedInput = scanner.nextLine();
-        Pattern pattern = Pattern.compile("(\\d+)\\{(.*?)\\}");
-        Matcher matcher = pattern.matcher(complexCompressedInput);
+        // Complex decompression using regex (stream not needed here)
+        System.out.println("Enter a complex compressed segment (e.g., '2{ABC} 3{XYZ}, 5{DEF}'):");
+        String complexComp = scanner.nextLine();
+        Pattern pat = Pattern.compile("(\\d+)\\{(.*?)\\}");
+        Matcher matcher = pat.matcher(complexComp);
         System.out.println("Decompressed segments:");
         while (matcher.find()) {
-            String segment = matcher.group(2);
-            int count = Integer.parseInt(matcher.group(1));
-            for (int i = 0; i < count; i++) {
-                System.out.print(segment + " ");
-            }
-            System.out.println();
+            int cnt = Integer.parseInt(matcher.group(1));
+            String seg = matcher.group(2);
+            String expandedSeg = IntStream.range(0, cnt)
+                .mapToObj(i -> seg)
+                .collect(Collectors.joining(" "));
+            System.out.println(expandedSeg);
         }
         System.out.println();
 
-        // Number String Normalization: Remove leading zeros from a numeric string.
-        System.out.println("Enter a number string with possible leading zeros:");
-        String numStringInput = scanner.nextLine();
-        String normalizedNumString = String.valueOf(Integer.valueOf(numStringInput));
-        System.out.println("Normalized number string: " + normalizedNumString);
+        // Number normalization (using minimal built-in conversion)
+        System.out.println("Enter a number string with leading zeros:");
+        String numStr = scanner.nextLine();
+        String normNum = String.valueOf(Integer.valueOf(numStr));
+        System.out.println("Normalized number: " + normNum);
         System.out.println();
 
-        // Even and Odd Length Words: Display words with even and odd character counts.
-        System.out.println("Enter a sentence to display words with even and odd number of characters:");
+        // Even and odd length words using streams
+        System.out.println("Enter a sentence to separate even and odd length words:");
         String evenOddSentence = scanner.nextLine();
         String[] evenOddWords = evenOddSentence.split("\\s+");
-        System.out.println("Words with even number of characters:");
-        Arrays.stream(evenOddWords).filter(word -> word.length() % 2 == 0).forEach(System.out::println);
-        System.out.println("Words with odd number of characters:");
-        Arrays.stream(evenOddWords).filter(word -> word.length() % 2 == 1).forEach(System.out::println);
+        List<String> evenWords = Arrays.stream(evenOddWords)
+            .filter(w -> w.length() % 2 == 0)
+            .collect(Collectors.toList());
+        List<String> oddWords = Arrays.stream(evenOddWords)
+            .filter(w -> w.length() % 2 == 1)
+            .collect(Collectors.toList());
+        System.out.println("Even length words: " + evenWords);
+        System.out.println("Odd length words: " + oddWords);
         System.out.println();
 
-        // Swap Adjacent Characters: Swap adjacent characters in a provided word.
-        System.out.println("Enter a word to swap its adjacent characters:");
-        String swapInput = scanner.nextLine();
-        char[] swapChars = swapInput.toCharArray();
-        for (int i = 0; i < swapChars.length - 1; i += 2) {
-            char temp = swapChars[i];
-            swapChars[i] = swapChars[i + 1];
-            swapChars[i + 1] = temp;
-        }
-        String swappedResult = new String(swapChars);
-        System.out.println("Result after swapping adjacent characters: " + swappedResult);
+        // Swap adjacent characters using streams
+        System.out.println("Enter a word to swap adjacent characters:");
+        String swapWord = scanner.nextLine();
+        String swapped = IntStream.range(0, swapWord.length())
+            .mapToObj(i -> {
+                if (i % 2 == 0) {
+                    return (i + 1 < swapWord.length()) ? swapWord.charAt(i + 1) : swapWord.charAt(i);
+                } else {
+                    return swapWord.charAt(i - 1);
+                }
+            })
+            .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
+            .toString();
+        System.out.println("Swapped word: " + swapped);
         System.out.println();
 
-        // Partition a String: Partition a string into a specified number of equal parts.
+        // Partition a string using streams
         System.out.println("Enter a string to partition:");
-        String partitionInput = scanner.nextLine();
-        System.out.println("Enter the number of equal parts to partition the string into:");
-        int partitionParts = Integer.parseInt(scanner.nextLine());
-        int partitionLength = partitionInput.length() / partitionParts;
-        System.out.println("Partitioned parts:");
-        IntStream.range(0, partitionParts)
-                .mapToObj(i -> partitionInput.substring(i * partitionLength, partitionLength * (i + 1)))
-                .forEach(System.out::println);
+        String partString = scanner.nextLine();
+        System.out.println("Enter number of parts to partition into:");
+        int parts = Integer.parseInt(scanner.nextLine());
+        int partLen = partString.length() / parts;
+        List<String> partitions = IntStream.range(0, parts)
+            .mapToObj(i -> partString.substring(i * partLen, (i + 1) * partLen))
+            .collect(Collectors.toList());
+        System.out.println("Partitions: " + partitions);
         System.out.println();
 
-        // Compute Pattern Result: Compute a result based on differences between counts of '0', '1', and '2'.
-        System.out.println("Enter a number pattern string (consisting of digits 0, 1, 2) for pattern computation:");
+        // Pattern computation (using a loop as stream conversion is nontrivial)
+        System.out.println("Enter a number pattern string (digits 0, 1, 2) for computation:");
         String patternInput = scanner.nextLine();
         HashMap<String, Integer> patternMap = new HashMap<>();
         patternMap.put("0,0", 1);
-        int count0 = 0, count1 = 0, count2 = 0, patternRes = 0;
-        for (char ch : patternInput.toCharArray()) {
-            if (ch == '0') count0++;
-            else if (ch == '1') count1++;
-            else if (ch == '2') count2++;
+        int count0 = 0, count1 = 0, count2 = 0, patternResult = 0;
+        for (char c : patternInput.toCharArray()) {
+            if (c == '0') count0++;
+            else if (c == '1') count1++;
+            else if (c == '2') count2++;
             String key = (count0 - count1) + "," + (count0 - count2);
-            patternRes += patternMap.getOrDefault(key, 0);
+            patternResult += patternMap.getOrDefault(key, 0);
             patternMap.put(key, patternMap.getOrDefault(key, 0) + 1);
         }
-        System.out.println("Pattern computation result: " + patternRes);
+        System.out.println("Pattern computation result: " + patternResult);
         System.out.println();
 
-        // Abbreviation Extraction: Extract and display only uppercase letters from a string.
-        System.out.println("Enter a string for abbreviation extraction (only uppercase letters will be kept):");
-        String abbreviationInput = scanner.nextLine();
-        String abbreviation = abbreviationInput.chars()
-                .mapToObj(ch -> (char) ch)
-                .filter(ch -> ch >= 'A' && ch <= 'Z')
-                .map(String::valueOf)
-                .collect(Collectors.joining());
+        // Abbreviation extraction using streams
+        System.out.println("Enter a string for abbreviation extraction (uppercase letters only):");
+        String abbrevInput = scanner.nextLine();
+        String abbreviation = abbrevInput.chars()
+            .mapToObj(c -> (char)c)
+            .filter(ch -> ch >= 'A' && ch <= 'Z')
+            .map(String::valueOf)
+            .collect(Collectors.joining());
         System.out.println("Abbreviation: " + abbreviation);
         System.out.println();
 
-        // String Rotation: Rotate a string left and right based on a provided number.
+        // String rotation using substring operations
         System.out.println("Enter a string for rotation (e.g., ABCD):");
-        String rotationInput = scanner.nextLine();
-        System.out.println("Enter a number for rotation:");
-        int rotationNumber = Integer.parseInt(scanner.nextLine()) % rotationInput.length();
-        // Duplicate the string to simulate rotation.
-        String rotationString = rotationInput + rotationInput;
-        String leftRotated = rotationString.substring(rotationNumber, rotationNumber + rotationInput.length());
-        String rightRotated = rotationString.substring(rotationInput.length() - rotationNumber, 2 * rotationInput.length() - rotationNumber);
-        System.out.println("Left Rotation: " + leftRotated);
-        System.out.println("Right Rotation: " + rightRotated);
-
+        String rotInput = scanner.nextLine();
+        System.out.println("Enter a rotation number:");
+        int rotNum = Integer.parseInt(scanner.nextLine()) % rotInput.length();
+        String rotString = rotInput + rotInput;
+        String leftRot = rotString.substring(rotNum, rotNum + rotInput.length());
+        String rightRot = rotString.substring(rotInput.length() - rotNum, 2 * rotInput.length() - rotNum);
+        System.out.println("Left Rotation: " + leftRot);
+        System.out.println("Right Rotation: " + rightRot);
+        
         scanner.close();
     }
 
     // Helper method to check if a string is a palindrome.
-    public static boolean isPalindrome(String word) {
-        return word.equals(new StringBuilder(word).reverse().toString());
+    public static boolean isPalindrome(String s) {
+        return s.equals(new StringBuilder(s).reverse().toString());
     }
 }
