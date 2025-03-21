@@ -18,7 +18,7 @@ class Bike extends Vehicle { //Hierarchical Inheritance
     }
 }
 
-interface Flyable { //Multiple, Hybrid Inheitance Base Class
+interface Flyable { //Multiple, Hybrid Inheritance Base Class
     void fly();
 }
 
