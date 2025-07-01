@@ -69,4 +69,33 @@ public class MatrixOperations {
         }
         return transpose;
     }
+    
+    public static void setZeroes(int[][] matrix) {
+        Set<Integer> rows = new HashSet<>();
+        Set<Integer> columns = new HashSet<>();
+        
+        //Storing the rows and columns which contains zeroes
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                if (matrix[i][j] == 0) {
+                    rows.add(i);
+                    columns.add(j);
+                }
+            }
+        }
+        
+        //Making rows as 0
+        for (int i : rows) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                matrix[i][j] = 0;
+            }
+        }
+
+        //Making columns as 0
+        for (int i : columns) {
+            for (int j = 0; j < matrix.length; j++) {
+                matrix[j][i] = 0;
+            }
+        }
+    }
 }
